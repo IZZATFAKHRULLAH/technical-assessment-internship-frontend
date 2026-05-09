@@ -95,8 +95,11 @@
                             <label for="floatingTextarea">Message</label>
                         </div>
 
+                        
                         <div class="d-grid">
-                            <button class="btn btn-primary btn-lg" type="submit">Send Message</button>
+                            <button class="btn btn-primary btn-lg" type="button" data-bs-toggle="modal" data-bs-target="#submissionModal">
+                                Submit Application
+                            </button>
                         </div>
                     </form>
                 </div>
@@ -104,7 +107,49 @@
         </div>
     </div>
 
+    <div class="modal fade" id="submissionModal" tabindex="-1" aria-labelledby="submissionModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content shadow">
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title" id="submissionModalLabel">Submission Received!</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-4">
+                    <p class="text-muted">Thank you for your interest. Below is a summary of your submission:</p>
+                    
+                    <div class="bg-light p-3 rounded border">
+                        <p class="mb-2"><strong>Name:</strong> <span id="display-name"></span></p>
+                        <p class="mb-2"><strong>Email:</strong> <span id="display-email"></span></p>
+                        <p class="mb-0"><strong>Message:</strong><span id="display-message"></span></p>
+                        <p class="text-secondary fst-italic"></p> 
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary px-4">Confirm</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Click Button
+        document.querySelector('[data-bs-target="#submissionModal"]').addEventListener('click', function() {
+            
+            const nameValue = document.getElementById('floatingName').value;
+            const emailValue = document.getElementById('floatingEmail').value;
+            const messageValue = document.getElementById('floatingTextarea').value;
+
+            
+            document.getElementById('display-name').textContent = nameValue || "Not provided";
+            document.getElementById('display-email').textContent = emailValue || "Not provided";
+            document.getElementById('display-message').textContent = messageValue || "Not provided";
+            
+            
+        });
+    </script>
 </body>
 
 </html>
