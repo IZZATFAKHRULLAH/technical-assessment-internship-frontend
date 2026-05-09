@@ -1,0 +1,97 @@
+<main class="min-vh-100 bg-light py-5">
+  <section class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-7 col-xl-6">
+        <form [formGroup]="contactForm" (ngSubmit)="onSubmit()" class="bg-white border rounded shadow-sm p-4">
+          <h1 class="h3 mb-2 text-primary">Angular SPA Contact Form</h1>
+          <p class="text-secondary mb-4">Reactive form validation with business logic and an HTTP POST example.</p>
+
+          <div class="mb-3">
+            <label for="name" class="form-label">Name</label>
+            <input
+              id="name"
+              type="text"
+              formControlName="name"
+              class="form-control"
+              [class.is-invalid]="name?.invalid && name?.touched"
+            />
+            <div class="invalid-feedback">Name must be at least 3 characters.</div>
+          </div>
+
+          <div class="mb-3">
+            <label for="email" class="form-label">Email</label>
+            <input
+              id="email"
+              type="email"
+              formControlName="email"
+              class="form-control"
+              [class.is-invalid]="email?.invalid && email?.touched"
+            />
+            <div class="invalid-feedback">Please enter a valid email address.</div>
+          </div>
+
+          <div class="mb-3">
+            <label for="subject" class="form-label">Subject</label>
+            <input
+              id="subject"
+              type="text"
+              formControlName="subject"
+              class="form-control"
+              [class.is-invalid]="subject?.invalid && subject?.touched"
+            />
+            <div class="invalid-feedback">Subject must be at least 5 characters.</div>
+          </div>
+
+          <div class="mb-4">
+            <label for="message" class="form-label">Message</label>
+            <textarea
+              id="message"
+              formControlName="message"
+              class="form-control"
+              rows="5"
+              [class.is-invalid]="message?.invalid && message?.touched"
+            ></textarea>
+            <div class="invalid-feedback">Message must be at least 10 characters.</div>
+          </div>
+
+          <button type="submit" class="btn btn-primary w-100 py-2" [disabled]="isSubmitting">
+            {{ isSubmitting ? 'Sending...' : 'Submit HTTP POST' }}
+          </button>
+
+          <div
+            *ngIf="statusMessage"
+            class="alert mt-3 mb-0"
+            [ngClass]="lastSubmittedId ? 'alert-success' : 'alert-danger'"
+          >
+            {{ statusMessage }}
+            <span *ngIf="lastSubmittedId">Response ID: {{ lastSubmittedId }}</span>
+          </div>
+        </form>
+
+        <div *ngIf="submittedResult" class="bg-white border rounded shadow-sm p-4 mt-4">
+          <h2 class="h5 mb-3 text-success">Submitted Result</h2>
+
+          <dl class="row mb-0">
+            <dt class="col-sm-4">Response ID</dt>
+            <dd class="col-sm-8">{{ lastSubmittedId }}</dd>
+
+            <dt class="col-sm-4">Name</dt>
+            <dd class="col-sm-8">{{ submittedResult.name }}</dd>
+
+            <dt class="col-sm-4">Email</dt>
+            <dd class="col-sm-8">{{ submittedResult.email }}</dd>
+
+            <dt class="col-sm-4">Subject</dt>
+            <dd class="col-sm-8">{{ submittedResult.subject }}</dd>
+
+            <dt class="col-sm-4">Submitted At</dt>
+            <dd class="col-sm-8">{{ submittedResult.submittedAt }}</dd>
+
+            <dt class="col-sm-4">Message</dt>
+            <dd class="col-sm-8 mb-0">{{ submittedResult.message }}</dd>
+          </dl>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
